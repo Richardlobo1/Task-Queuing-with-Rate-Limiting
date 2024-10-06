@@ -24,7 +24,7 @@
         async function hitApi(id) {
             const res=await fetch(`/api${id}`,
             {method:'POST'}).then(t=>t.json())
-            output.innerText+=`\n Response:${res.response}Calls=${res.callsInAMinute}TTL=${res.ttl}`
+            output.innerText+=`\n Response:    ${res.response}Calls=    ${res.callsInAMinute}TTL=${res.ttl}`
             
         }
 
