@@ -12,7 +12,7 @@ npm init -y
 ### 2. Install Required Dependencies
 Install the necessary packages:
 ```bash
-npm install express node-fetch redis express-rate-limit ioredis 
+npm install  
 ````
 ### 3. Start the Application
 To run the application, use the following command:
