@@ -9,29 +9,41 @@
 
 <body>
     <h1>Hit an API</h1>
-    <button id="api1"> Hit API 1</button>
-    <button id="api2">Hit API 2</button>
-    <button id="api3">Hit API 3</button>
+    
+    <!-- User ID input -->
+    <label for="userID">Enter User ID:</label>
+    <input type="text" id="userID" placeholder="User ID" />
+
+    <button id="api1">Hit API 1</button>
+    
     <pre id="output"></pre>
+
     <script>
-        const api1=document.getElementById('api1')
-        const api2=document.getElementById('api2')
-        const api3=document.getElementById('api3')
-        const output=document.getElementById('output')
-        api1.addEventListener('click',()=>hitApi(1))
-        api2.addEventListener('click',()=>hitApi(2))
-        api3.addEventListener('click',()=>hitApi(3))
+        const api1 = document.getElementById('api1');
+        const output = document.getElementById('output');
+        const userIDInput = document.getElementById('userID');
+
+        api1.addEventListener('click', () => hitApi(1));
+
         async function hitApi(id) {
-            const res=await fetch(`/api${id}`,
-            {method:'POST'}).then(t=>t.json())
-            output.innerText+=`\n Response:    ${res.response}Calls=    ${res.callsInAMinute}TTL=${res.ttl}`
-            
+            const userID = userIDInput.value.trim();
+            if (!userID) {
+                output.innerText += '\n Error: Please enter a valid userID.';
+                return;
+            }
+
+            const res = await fetch(`/api${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userID })
+            }).then(t => t.json());
+
+            output.innerText += `\n Response: ${res.response} Calls= ${res.callsInAMinute || res.callsInSecond || 0} TTL=${res.ttl || 0}`;
         }
-
-
-
-
     </script>
 </body>
 
 </html>
+
